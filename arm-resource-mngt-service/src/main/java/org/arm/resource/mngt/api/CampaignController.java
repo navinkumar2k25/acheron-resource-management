@@ -49,7 +49,7 @@ public class CampaignController {
 		return ResponseEntity.ok().headers(headers).body(campaignVOs);
 	}
 
-	@GetMapping("/campaign/id/{id}")
+	@GetMapping("/campaign/{id}")
 	public ResponseEntity<Campaign> findById(@PathVariable("id") int id) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "Get Campaign By ID");
