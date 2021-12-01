@@ -24,7 +24,7 @@ public class CampaignService implements ICampaignService {
 
 	@Override
 	public void createCampaign(Campaign campaign) {
-		campaignRepository.save(campaign);
+		campaignRepository.save(campaign); 
 	}
 
 	@Override

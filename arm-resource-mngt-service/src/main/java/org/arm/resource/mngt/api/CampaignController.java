@@ -27,7 +27,7 @@ public class CampaignController {
 	public ResponseEntity<List<CampaignVO>> allCampaignVO() {
 		logger.info("All Campaign inside controller");
 		List<CampaignVO> campaignVOs = new ArrayList<CampaignVO>();
-		List<Campaign> allCampaigns = campaignService.getAllCampaign();
+		List<Campaign> allCampaigns = campaignService.getAllCampaign(); 
 		for (Campaign campaign : allCampaigns) {
 			DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
 			dozerBeanMapper.setMappingFiles(Arrays.asList("mapping\\mapper.xml"));

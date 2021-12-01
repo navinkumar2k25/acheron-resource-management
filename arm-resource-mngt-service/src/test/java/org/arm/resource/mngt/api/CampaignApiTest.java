@@ -46,7 +46,7 @@ public class CampaignApiTest {
 	@DisplayName("getAllCampaign Testing")
 	public void testGetAllCampaign() {
 		HttpEntity<String> entity = new HttpEntity<String>(null,headers);
-		ResponseEntity<List<Campaign>> response = restTemplate.exchange(createURLWithPort("/campaignVO"),HttpMethod.GET,entity,new ParameterizedTypeReference<List<Campaign>>() {
+		ResponseEntity<List<Campaign>> response = restTemplate.exchange(createURLWithPort("/campaigns"),HttpMethod.GET,entity,new ParameterizedTypeReference<List<Campaign>>() {
 		});
 		assertNotEquals(response.getBody().size(), 0);
 		assertNotNull(response.getBody().get(0));

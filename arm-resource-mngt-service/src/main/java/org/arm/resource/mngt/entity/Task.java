@@ -60,4 +60,7 @@ public class Task {
 	@JoinColumn(name = "resourceId")
 	private Resource resource;
 
+	
+	
+
 }
