@@ -23,16 +23,7 @@ public class CampaignController {
 
 	Logger logger = LoggerFactory.getLogger(CampaignController.class);
 
-	@GetMapping("/campaign")
-	public ResponseEntity<List<Campaign>> allCampaign() {
-		logger.info("All Campaign inside controller");
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("desc", "Get All Campaign List");
-		List<Campaign> allCampaigns= campaignService.getAllCampaign();
-		return ResponseEntity.ok().headers(headers).body(allCampaigns);
-	}
-
-	@GetMapping("/campaignVO")
+	@GetMapping("/campaigns")
 	public ResponseEntity<List<CampaignVO>> allCampaignVO() {
 		logger.info("All Campaign inside controller");
 		List<CampaignVO> campaignVOs = new ArrayList<CampaignVO>();

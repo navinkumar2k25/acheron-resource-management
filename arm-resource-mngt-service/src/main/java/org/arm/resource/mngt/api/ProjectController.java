@@ -18,17 +18,12 @@ public class ProjectController {
 	@Autowired
 	private IProjectService projectService;
 
-	@GetMapping("/project")
-	public List<Project> allProject() {
-		return projectService.getAllProject();
-	}
-
-	@GetMapping("/project/id/{id}")
-	Project getById(@PathVariable("id") int id) {
+	@GetMapping("/projects/{project-id}")
+	Project getById(@PathVariable("project-id") int id) {
 		return projectService.getById(id);
 	}
 
-	@GetMapping("/projectVO")
+	@GetMapping("/projects")
 	public List<ProjectVO> allProjectVO() {
 		List<ProjectVO> projectVOs = new ArrayList<ProjectVO>();
 		List<Project> allProjects = projectService.getAllProject();

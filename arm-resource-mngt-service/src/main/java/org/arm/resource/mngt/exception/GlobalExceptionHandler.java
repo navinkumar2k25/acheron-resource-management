@@ -77,7 +77,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 			String error = "ID not available";
 			ApiErrors errors = new ApiErrors(timestamp, message, HttpStatus.CONFLICT.value(), error);
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(errors);
-
 		}
 	
 	//other EXceptions

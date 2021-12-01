@@ -37,7 +37,7 @@ public class Campaign {
 	private int isDeleted;
 	private String createdBy;
 	private String updatedBy;
-	
+	private String region;
 	@OneToMany(mappedBy = "campaign")
 	@JsonManagedReference
 	private List<Project> projects;

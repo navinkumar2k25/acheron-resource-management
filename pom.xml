@@ -48,7 +48,6 @@
 		<module>arm-discovery-service</module>
 		<module>arm-config-service</module>
 		<module>arm-resource-mngt-service</module>
-		<module>your-reference-service</module>
 		<module>arm-spring-gateway</module>
 	</modules>
 </project>

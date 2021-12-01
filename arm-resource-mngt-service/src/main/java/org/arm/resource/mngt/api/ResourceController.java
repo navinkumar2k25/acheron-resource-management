@@ -21,14 +21,7 @@ public class ResourceController {
 	@Autowired
 	private ResourceService resourceService;
 
-	@GetMapping("/resource/list")
-	public List<Resource> getResources() {
-		List<Resource> allr = resourceService.findAll();
-		// System.out.println(allr.get(0).getAvailability());
-		return allr;
-	}
-
-	@GetMapping("/resourceVO")
+	@GetMapping("/resources")
 	public ResponseEntity<List<ResourceVO>> getAllResource() {
 		List<ResourceVO> resourceVOs = new ArrayList<ResourceVO>();
 		List<Resource> resourceList = resourceService.findAll();
@@ -54,7 +47,7 @@ public class ResourceController {
 //		resourceService.save(resource);
 //	}
 //	
-	@GetMapping("/resource")
+	@GetMapping("/resources/without-task")
 	public ResponseEntity<List<ResourceVO>> getResourceWithoutTaskAssigned() {
 		List<ResourceVO> resourceVOs = new ArrayList<ResourceVO>();
 		List<Resource> resourceList = resourceService.findResourceWithoutTaskAssigned();
@@ -69,8 +62,8 @@ public class ResourceController {
 		return ResponseEntity.ok().headers(headers).body(resourceVOs);
 	}
 
-	@GetMapping("/resource/id/{id}")
-	Resource getById(@PathVariable("id") int id) {
+	@GetMapping("/resources/{resource-id}")
+	Resource getById(@PathVariable("resource-id") int id) {
 		return resourceService.getById(id);
 	}
 

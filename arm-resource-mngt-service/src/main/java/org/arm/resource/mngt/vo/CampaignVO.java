@@ -38,7 +38,7 @@ public class CampaignVO implements Serializable {
 	private Priority priority;
 	@Enumerated(EnumType.STRING)
 	private Status status;
-
+	private String region;
 	@OneToMany(mappedBy = "campaignVO")
 	@JsonManagedReference
 	private List<ProjectVO> projects;

@@ -29,19 +29,6 @@ public class CampaignApiTest {
 	private int port;
 	TestRestTemplate restTemplate = new TestRestTemplate();
 	HttpHeaders headers = new HttpHeaders();
-
-	@SuppressWarnings("deprecation") 
-	@Test
-	@DisplayName("getAllCampaignApi Testing")
-	public void testGetAllCampaign() {
-
-		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-		ResponseEntity<List> response = restTemplate.exchange(createURLWithPort("/campaign"), HttpMethod.GET,
-				entity, List.class);
-
-		assertEquals(response.getBody().size(), 2);
-
-	}
 	
 	@SuppressWarnings("deprecation")
 	@Test
@@ -56,8 +43,8 @@ public class CampaignApiTest {
 	
 	@SuppressWarnings("deprecation")
 	@Test
-	@DisplayName("getAllCampaignVo Testing")
-	public void testGetAllCampaignVO() {
+	@DisplayName("getAllCampaign Testing")
+	public void testGetAllCampaign() {
 		HttpEntity<String> entity = new HttpEntity<String>(null,headers);
 		ResponseEntity<List<Campaign>> response = restTemplate.exchange(createURLWithPort("/campaignVO"),HttpMethod.GET,entity,new ParameterizedTypeReference<List<Campaign>>() {
 		});

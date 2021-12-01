@@ -28,7 +28,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @JsonIdentityInfo(
-		   scope = Resource.class,
+		scope=Resource.class,
 		   generator = ObjectIdGenerators.PropertyGenerator.class,
 		   property = "taskId")
 public class Task {

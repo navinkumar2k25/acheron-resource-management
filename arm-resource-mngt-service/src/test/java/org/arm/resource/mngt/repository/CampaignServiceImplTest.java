@@ -53,7 +53,7 @@ public class CampaignServiceImplTest {
 		Campaign campaign = (new Campaign(1, "Acheron", "Manager", Timestamp.valueOf("2020-03-27 09:03:01"),
 				Timestamp.valueOf("2020-04-27 09:03:01"), Priority.HIGH, Status.DEFINED,
 				Timestamp.valueOf("2020-03-27 09:03:01"), Timestamp.valueOf("2020-03-27 09:03:01"), 0, "Prasanna",
-				"Naveen", null));
+				"Naveen","NAC", null));
 		campaignList.add(campaign);
 
 		when(campaignRepository.findAll()).thenReturn(campaignList);

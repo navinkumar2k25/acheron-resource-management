@@ -24,5 +24,4 @@ public class ApiErrors {
 		this.error = error;
 	}
 	
-	
 }

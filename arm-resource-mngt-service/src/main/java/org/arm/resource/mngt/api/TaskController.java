@@ -19,17 +19,12 @@ public class TaskController {
 	@Autowired
 	private ITaskService taskService;
 
-	@GetMapping("/task")
-	public List<Task> allTask() {
-		return taskService.getAllTask();
-	}
-
-	@GetMapping("/task/id/{id}")
-	Task getById(@PathVariable("id") int id) {
+	@GetMapping("/tasks/{task-id}")
+	Task getById(@PathVariable("task-id") int id) {
 		return taskService.getById(id);
 	}
 
-	@GetMapping("/taskVO")
+	@GetMapping("/tasks")
 	public List<TaskVO> allTaskVO() {
 		List<TaskVO> taskVOs = new ArrayList<TaskVO>();
 		List<Task> allTasks = taskService.getAllTask();
@@ -58,8 +53,8 @@ public class TaskController {
 //		taskService.createTasks(task);
 //	}
 
-	@GetMapping("/task/availableHours/{availableHours}")
-	ResponseEntity<List<Task>> findByDurationLessThan(@PathVariable("availableHours") float availableHours) {
+	@GetMapping("/tasks/availability/{available-hour}")
+	ResponseEntity<List<Task>> findByDurationLessThan(@PathVariable("available-hour") float availableHours) {
 		List<Task> taskList = taskService.getByDurationLessThan(availableHours);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "Get Brandlist By Name");

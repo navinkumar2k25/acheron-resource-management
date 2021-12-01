@@ -1,19 +1,20 @@
 package org.arm.resource.mngt.api;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
 import org.arm.resource.mngt.ArmRMSApplication;
-import org.arm.resource.mngt.entity.Project;
+import org.arm.resource.mngt.entity.Resource;
+import org.arm.resource.mngt.entity.Task;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,8 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ArmRMSApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProjectApiTest {
-
+public class TaskApiTest {
 	@LocalServerPort
 	private int port;
 	TestRestTemplate restTemplate = new TestRestTemplate();
@@ -31,27 +31,40 @@ public class ProjectApiTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	@DisplayName("getAllProjectApi Testing")
-	public void testGetAllProject() {
+	@DisplayName("getAllTaskApi Testing")
+	public void testGetAllTask() {
 
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-		ResponseEntity<List> response = restTemplate.exchange(createURLWithPort("/projects"), HttpMethod.GET, entity,
+		ResponseEntity<List> response = restTemplate.exchange(createURLWithPort("/tasks"), HttpMethod.GET, entity,
 				List.class);
 
-		assertEquals(response.getBody().size(), 4);
+		assertEquals(response.getBody().size(), 7);
 
 	}
 
 	@SuppressWarnings("deprecation")
 	@Test
-	@DisplayName("getProjectByIdApi Testing")
-	public void testProjectById() {
+	@DisplayName("getTaskByIdApi Testing")
+	public void testGetTaskById() {
 
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-		ResponseEntity<Project> response = restTemplate.exchange(createURLWithPort("/projects/2"), HttpMethod.GET,
-				entity, Project.class);
-		System.out.println(response.getBody());
-		assertEquals(response.getBody().getProjectId(), 2);
+		ResponseEntity<Task> response = restTemplate.exchange(createURLWithPort("/tasks/4"), HttpMethod.GET, entity,
+				Task.class);
+
+		assertEquals(response.getBody().getTaskId(), 4);
+
+	}
+	@SuppressWarnings("deprecation")
+	@Test
+	@DisplayName("getTasksByDurationLessThan Testing")
+	public void testfindByDurationLessThan() {
+
+		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		ResponseEntity<List<Task>> response = restTemplate.exchange(createURLWithPort("/tasks/availability/80"),
+				HttpMethod.GET, entity, new ParameterizedTypeReference<List<Task>>() {
+				});
+		List<Task> taskList = response.getBody();
+		assertEquals(taskList.size(),6);
 
 	}
 
