@@ -2,6 +2,7 @@ package org.arm.resource.mngt.entity;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
@@ -44,12 +46,11 @@ public class Project {
 	
 	@ManyToOne
 	@JoinColumn(name="campaignId")
-	@JsonBackReference
+	@JsonIgnore
 	private Campaign campaign;
 	
 	@OneToMany(mappedBy="project")
-	@JsonManagedReference
-	private List<Task> tasks;
+	private Set<Task> tasks;
 
 	@Override
 	public String toString() {

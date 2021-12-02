@@ -2,6 +2,7 @@ package org.arm.resource.mngt.entity;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -39,8 +40,7 @@ public class Campaign {
 	private String updatedBy;
 	private String region;
 	@OneToMany(mappedBy = "campaign")
-	@JsonManagedReference
-	private List<Project> projects;
+	private Set<Project> projects;
 
 	@Override
 	public String toString() {

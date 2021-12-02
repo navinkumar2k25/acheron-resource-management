@@ -15,6 +15,8 @@ import org.arm.resource.mngt.entity.Priority;
 import org.arm.resource.mngt.entity.Status;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +30,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
 public class TaskVO implements Serializable {
 
 	/**
@@ -49,7 +50,7 @@ public class TaskVO implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
-	@JsonBackReference
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "projectId")
 	private ProjectVO projectVO;

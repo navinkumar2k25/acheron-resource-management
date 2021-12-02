@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
@@ -42,6 +43,7 @@ public class Resource {
 	private int isDeleted;
 		
 	@OneToMany(mappedBy="resource")
+	@JsonIgnore
 	private List<Task> taskList;
 	private String resourceImage;
 	private String region;
@@ -53,78 +55,5 @@ public class Resource {
 	@JoinColumn(name="leaveId")
 	private Leaves leave;
 
-
-//	public int getResourceId() {
-//		return resourceId;
-//	}
-//
-//	public void setResourceId(int resourceId) {
-//		this.resourceId = resourceId;
-//	}
-//
-//	public String getResourceName() {
-//		return resourceName;
-//	}
-//
-//	public void setResourceName(String resourceName) {
-//		this.resourceName = resourceName;
-//	}
-//
-//	public String getResourceType() {
-//		return resourceType;
-//	}
-//
-//	public void setResourceType(String resourceType) {
-//		this.resourceType = resourceType;
-//	}
-//
-//	public Timestamp getCreateDate() {
-//		return createDate;
-//	}
-//
-//	public void setCreateDate(Timestamp createDate) {
-//		this.createDate = createDate;
-//	}
-//
-//	public Timestamp getUpdateDate() {
-//		return updateDate;
-//	}
-//
-//	public void setUpdateDate(Timestamp updateDate) {
-//		this.updateDate = updateDate;
-//	}
-//
-//	public int getIsDeleted() {
-//		return isDeleted;
-//	}
-//
-//	public void setIsDeleted(int isDeleted) {
-//		this.isDeleted = isDeleted;
-//	}
-//
-//	public List<Task> getTaskList() {
-//		return taskList;
-//	}
-//
-//	public void setTaskList(List<Task> taskList) {
-//		this.taskList = taskList;
-//	}
-//
-//	public Availability getAvailability() {
-//		return availability;
-//	}
-//
-//	public void setAvailability(Availability availability) {
-//		this.availability = availability;
-//	}
-//
-//	public Leaves getLeave() {
-//		return leave;
-//	}
-//
-//	public void setLeave(Leaves leave) {
-//		this.leave = leave;
-//	}
-//	
 	
 }

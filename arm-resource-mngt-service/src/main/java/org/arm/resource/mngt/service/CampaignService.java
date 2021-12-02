@@ -35,5 +35,10 @@ public class CampaignService implements ICampaignService {
 		}
 		return campaignById;
 	}
+	
+	@Override
+	public List<Campaign> getAllResourcesCampaignDetails() {
+		return campaignRepository.findAllResourcesCampaignDetails();
+	}
 
 }
