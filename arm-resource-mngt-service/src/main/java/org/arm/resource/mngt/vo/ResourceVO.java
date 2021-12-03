@@ -14,7 +14,9 @@ import javax.persistence.OneToOne;
 import org.arm.resource.mngt.entity.Availability;
 import org.arm.resource.mngt.entity.Leaves;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
@@ -29,7 +31,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "resourceId")
 public class ResourceVO implements Serializable {
 
 	/**
@@ -44,6 +45,7 @@ public class ResourceVO implements Serializable {
 	private String resourceType;
 
 	@OneToMany(mappedBy = "resource")
+	@JsonBackReference
 	private List<TaskVO> taskList;
 	private String resourceImage;
 	private String region;

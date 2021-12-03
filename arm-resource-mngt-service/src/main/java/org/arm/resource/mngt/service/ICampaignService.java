@@ -12,4 +12,6 @@ public interface ICampaignService {
 	public void createCampaign(Campaign campaign);
 
 	public Campaign findById(int l) throws IDNotFoundException;
+	
+	List<Campaign> getAllResourcesCampaignDetails();
 }

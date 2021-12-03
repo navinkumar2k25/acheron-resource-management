@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import org.arm.resource.mngt.entity.Priority;
 import org.arm.resource.mngt.entity.Status;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

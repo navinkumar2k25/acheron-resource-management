@@ -25,7 +25,7 @@ public class CampaignService implements ICampaignService {
 
 	@Override
 	public void createCampaign(Campaign campaign) {
-		campaignRepository.save(campaign);
+		campaignRepository.save(campaign); 
 	}
 
 	@Override
@@ -35,6 +35,11 @@ public class CampaignService implements ICampaignService {
 			throw new IDNotFoundException("Id not found");
 		}
 		return campaignById.get();
+	}
+	
+	@Override
+	public List<Campaign> getAllResourcesCampaignDetails() {
+		return campaignRepository.findAllResourcesCampaignDetails();
 	}
 
 }

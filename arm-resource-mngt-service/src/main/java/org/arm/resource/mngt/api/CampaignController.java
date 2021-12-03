@@ -2,9 +2,16 @@ package org.arm.resource.mngt.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.arm.resource.mngt.entity.Campaign;
+import org.arm.resource.mngt.entity.Project;
+import org.arm.resource.mngt.entity.Resource;
+import org.arm.resource.mngt.entity.Task;
 import org.arm.resource.mngt.service.ICampaignService;
+import org.arm.resource.mngt.service.IResourceService;
 import org.arm.resource.mngt.vo.CampaignVO;
 import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
@@ -20,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class CampaignController {
 	@Autowired
 	private ICampaignService campaignService;
+	
+	@Autowired
+	private IResourceService iResourceService;
 
 	Logger logger = LoggerFactory.getLogger(CampaignController.class);
 
@@ -40,8 +50,10 @@ public class CampaignController {
 		return ResponseEntity.ok().headers(headers).body(campaignVOs);
 	}
 
-	@GetMapping("/campaigns/{campaign-id}")
-	public ResponseEntity<Campaign> findById(@PathVariable("campaign-id") int id) {
+
+
+	@GetMapping("/campaign/{id}")
+	public ResponseEntity<Campaign> findById(@PathVariable("id") int id) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "Get Campaign By ID");
 		Campaign campaignById=campaignService.findById(id);
@@ -64,4 +76,32 @@ public class CampaignController {
 //		campaignService.createCampaign(campaign);
 //		
 //	}
+	@GetMapping("/campaigns/resources")
+	public ResponseEntity<List<CampaignVO>> allResources() {
+
+		List<Campaign> allCampaigns = campaignService.getAllCampaign();
+		List<CampaignVO> campaignVOs = new ArrayList<CampaignVO>();
+		List<Resource> allNotAssignedResource = iResourceService.findResourceWithoutTaskAssigned();
+		List<Campaign> campaignList = new ArrayList<>();
+		allNotAssignedResource.forEach((resource) -> {
+			Task task = new Task(0, null, null, null, null, 0, null, null, null, null, 0, null, null, null, resource);
+			Set<Task> taskSet = new HashSet<>(Arrays.asList(task));
+			Project project = new Project(0, null, null, null, null, null, null, null, null, 0, null, null, null,
+					taskSet);
+			Set<Project> projectsSet = new HashSet<>(Arrays.asList(project));
+			Campaign campaign = new Campaign(0, null, null, null, null, null, null, null, null, 0, null, null,
+					null, projectsSet);
+			campaignList.add(campaign);
+		});
+		allCampaigns.addAll(campaignList);
+		for (Campaign campaign : allCampaigns) {
+			DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+			dozerBeanMapper.setMappingFiles(Arrays.asList("mapping\\mapper.xml"));
+			CampaignVO campaignVO = dozerBeanMapper.map(campaign, CampaignVO.class);
+			campaignVOs.add(campaignVO);
+		}
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("desc", "Get All resources with campaign details");
+		return ResponseEntity.ok().headers(headers).body(campaignVOs);
+	}
 }

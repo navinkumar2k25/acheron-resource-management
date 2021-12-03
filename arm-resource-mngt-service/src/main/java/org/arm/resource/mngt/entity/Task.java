@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
@@ -27,10 +28,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@JsonIdentityInfo(
-		scope=Resource.class,
-		   generator = ObjectIdGenerators.PropertyGenerator.class,
-		   property = "taskId")
 public class Task {
 
 	@Id
@@ -51,7 +48,7 @@ public class Task {
 	private String createdBy;
 	private String updatedBy;
 
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "projectId")
 	private Project project;
@@ -59,5 +56,8 @@ public class Task {
 	@ManyToOne
 	@JoinColumn(name = "resourceId")
 	private Resource resource;
+
+	
+	
 
 }
