@@ -1,6 +1,7 @@
 package org.arm.resource.mngt.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.arm.resource.mngt.entity.Campaign;
 import org.arm.resource.mngt.exception.IDNotFoundException;
@@ -29,11 +30,11 @@ public class CampaignService implements ICampaignService {
 
 	@Override
 	public Campaign findById(int id) throws IDNotFoundException{
-		Campaign campaignById=campaignRepository.findById(id).get();
+		Optional<Campaign> campaignById=campaignRepository.findById(id);
 		if(campaignById==null) {
 			throw new IDNotFoundException("Id not found");
 		}
-		return campaignById;
+		return campaignById.get();
 	}
 
 }
