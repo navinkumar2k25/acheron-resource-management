@@ -27,10 +27,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@JsonIdentityInfo(
-		scope = Task.class,
-		   generator = ObjectIdGenerators.PropertyGenerator.class,
-		   property = "resourceId")
 public class Resource {
 
 	@Id

@@ -46,7 +46,7 @@
 
 	<modules>
 		<module>arm-discovery-service</module>
-		<module>arm-config-service</module>
+	 <module>arm-config-service</module> 
 		<module>arm-resource-mngt-service</module>
 		<module>arm-spring-gateway</module>
 	</modules>

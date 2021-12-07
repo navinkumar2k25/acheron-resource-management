@@ -15,34 +15,26 @@ import org.arm.resource.mngt.entity.Campaign;
 import org.arm.resource.mngt.entity.Priority;
 import org.arm.resource.mngt.entity.Status;
 import org.arm.resource.mngt.exception.IDNotFoundException;
-import org.arm.resource.mngt.repository.CampaignRepository;
 import org.arm.resource.mngt.service.CampaignService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-//@SpringBootTest
-//@RunWith(SpringRunner.class)
 @ExtendWith(MockitoExtension.class)
-@RunWith(MockitoJUnitRunner.class)
 public class CampaignServiceImplTest {
 	@InjectMocks
-	CampaignService campaignService;
+	private CampaignService campaignService;
 
 	@Mock
-	CampaignRepository campaignRepository;
+	private CampaignRepository campaignRepository;
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
 	}
 
 	@After

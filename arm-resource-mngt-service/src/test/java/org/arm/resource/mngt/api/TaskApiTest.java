@@ -1,16 +1,13 @@
 package org.arm.resource.mngt.api;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
 import org.arm.resource.mngt.ArmRMSApplication;
-import org.arm.resource.mngt.entity.Resource;
 import org.arm.resource.mngt.entity.Task;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -19,9 +16,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ArmRMSApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TaskApiTest {
 	@LocalServerPort
@@ -29,8 +24,8 @@ public class TaskApiTest {
 	TestRestTemplate restTemplate = new TestRestTemplate();
 	HttpHeaders headers = new HttpHeaders();
 
-	@SuppressWarnings("deprecation")
 	@Test
+	@SuppressWarnings("all")
 	@DisplayName("getAllTaskApi Testing")
 	public void testGetAllTask() {
 
@@ -38,11 +33,10 @@ public class TaskApiTest {
 		ResponseEntity<List> response = restTemplate.exchange(createURLWithPort("/tasks"), HttpMethod.GET, entity,
 				List.class);
 
-		assertEquals(response.getBody().size(), 7);
+		assertEquals(response.getBody().size(), 9);
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	@DisplayName("getTaskByIdApi Testing")
 	public void testGetTaskById() {
@@ -54,7 +48,7 @@ public class TaskApiTest {
 		assertEquals(response.getBody().getTaskId(), 4);
 
 	}
-	@SuppressWarnings("deprecation")
+
 	@Test
 	@DisplayName("getTasksByDurationLessThan Testing")
 	public void testfindByDurationLessThan() {
@@ -64,7 +58,7 @@ public class TaskApiTest {
 				HttpMethod.GET, entity, new ParameterizedTypeReference<List<Task>>() {
 				});
 		List<Task> taskList = response.getBody();
-		assertEquals(taskList.size(),6);
+		assertEquals(taskList.size(), 8);
 
 	}
 

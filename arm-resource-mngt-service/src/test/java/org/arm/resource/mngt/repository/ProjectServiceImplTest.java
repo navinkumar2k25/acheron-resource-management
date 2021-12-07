@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,28 +19,21 @@ import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-@RunWith(MockitoJUnitRunner.class)
-//@SpringBootTest(classes = ArmRMSApplication.class)
-//@Transactional
 public class ProjectServiceImplTest {
 
 	@InjectMocks
-	ProjectService projectService;
+	private ProjectService projectService;
 
 	@Mock
-	ProjectRepository projectRepository;
+	private ProjectRepository projectRepository;
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
 	}
 
 	@After

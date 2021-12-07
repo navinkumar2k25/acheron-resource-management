@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.arm.resource.mngt.entity.Campaign;
+import org.arm.resource.mngt.exception.CampaignNotFoundException;
 import org.arm.resource.mngt.exception.IDNotFoundException;
 import org.arm.resource.mngt.repository.CampaignRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,10 @@ public class CampaignService implements ICampaignService {
 	@Autowired
 	CampaignRepository campaignRepository;
 
-	public List<Campaign> getAllCampaign() {
+	public List<Campaign> getAllCampaign() throws CampaignNotFoundException {
 		 List<Campaign> allCampaign= campaignRepository.findAll();
 			if(allCampaign.isEmpty()) {
-				throw new RuntimeException("no campaign found");
+				throw new CampaignNotFoundException("No campaign found");
 			}
 			return allCampaign;
 
@@ -38,8 +39,13 @@ public class CampaignService implements ICampaignService {
 	}
 	
 	@Override
-	public List<Campaign> getAllResourcesCampaignDetails() {
-		return campaignRepository.findAllResourcesCampaignDetails();
+	public List<Campaign> getAllResourcesCampaignDetails()throws CampaignNotFoundException {
+		List<Campaign> campaignList= campaignRepository.findAllResourcesCampaignDetails();
+		if(campaignList.isEmpty())
+		{
+			throw new CampaignNotFoundException("No campaign found");
+		}
+		return campaignList;
 	}
 
 }

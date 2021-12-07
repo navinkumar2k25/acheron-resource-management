@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.arm.resource.mngt.entity.Resource;
 import org.arm.resource.mngt.entity.Task;
+import org.arm.resource.mngt.exception.ResourceNotFoundException;
 import org.arm.resource.mngt.service.ResourceService;
 import org.arm.resource.mngt.vo.ResourceVO;
 import org.dozer.DozerBeanMapper;
@@ -22,7 +23,7 @@ public class ResourceController {
 	private ResourceService resourceService;
 
 	@GetMapping("/resources")
-	public ResponseEntity<List<ResourceVO>> getAllResource() {
+	public ResponseEntity<List<ResourceVO>> getAllResource() throws ResourceNotFoundException{
 		List<ResourceVO> resourceVOs = new ArrayList<ResourceVO>();
 		List<Resource> resourceList = resourceService.findAll();
 		for (Resource resource : resourceList) {

@@ -1,8 +1,8 @@
 package org.arm.resource.mngt.repository;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,17 +22,11 @@ import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-//@SpringBootTest
-//@RunWith(SpringRunner.class)
 @ExtendWith(MockitoExtension.class)
-@RunWith(MockitoJUnitRunner.class)
 public class TaskServiceImplTest {
 	@InjectMocks
 	private TaskService taskService;
@@ -40,10 +34,8 @@ public class TaskServiceImplTest {
 	@Mock
 	private TaskRepository taskRepository;
 
-	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
 	}
 
 	@After
@@ -116,9 +108,9 @@ public class TaskServiceImplTest {
 				Timestamp.valueOf("2020-03-27 09:03:01"), Timestamp.valueOf("2020-03-27 09:03:01"), 1, "Prasanna",
 				"Navin", null, null);
 		List<Task> taskList = Arrays.asList(task1, task2);
-		when(taskRepository.findByDurationLessThan(60)).thenReturn(Arrays.asList(task1));
-		List<Task> actual = taskService.getByDurationLessThan(60);
-		assertEquals(Arrays.asList(task1), actual);
+		when(taskRepository.findByDurationLessThan(70)).thenReturn(taskList);
+		List<Task> actual = taskService.getByDurationLessThan(70);
+		assertEquals(taskList, actual);
 
 	}
 

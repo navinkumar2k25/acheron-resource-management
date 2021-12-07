@@ -1,6 +1,6 @@
 package org.arm.resource.mngt.api;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -9,7 +9,6 @@ import org.arm.resource.mngt.ArmRMSApplication;
 import org.arm.resource.mngt.entity.Resource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -18,9 +17,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ArmRMSApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ResourceApiTest {
 
@@ -29,7 +26,7 @@ public class ResourceApiTest {
 	TestRestTemplate restTemplate = new TestRestTemplate();
 	HttpHeaders headers = new HttpHeaders();
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings("all")
 	@Test
 	@DisplayName("getAllResourceApi Testing")
 	public void testGetAllResource() {
@@ -42,7 +39,6 @@ public class ResourceApiTest {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	@DisplayName("getResourceByIdApi Testing")
 	public void testResourceById() {
@@ -55,7 +51,6 @@ public class ResourceApiTest {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	@DisplayName("getAllResourceWithoutTaskApi Testing")
 	public void testResourcesWithoutTask() {
@@ -65,8 +60,12 @@ public class ResourceApiTest {
 				HttpMethod.GET, entity, new ParameterizedTypeReference<List<Resource>>() {
 				});
 		List<Resource> resourcesWithoutTaskList = response.getBody();
-		assertTrue(resourcesWithoutTaskList.get(0).getTaskList().isEmpty());
+		assertNull(resourcesWithoutTaskList.get(0).getTaskList());
 
+	}
+
+	private String createURLWithPort(String uri) {
+		return "http://localhost:" + port + uri;
 	}
 //	@SuppressWarnings("deprecation")
 //	@Test
@@ -81,7 +80,4 @@ public class ResourceApiTest {
 //
 //	}
 
-	private String createURLWithPort(String uri) {
-		return "http://localhost:" + port + uri;
-	}
 }

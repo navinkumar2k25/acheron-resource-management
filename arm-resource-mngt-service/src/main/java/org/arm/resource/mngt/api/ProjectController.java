@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.arm.resource.mngt.entity.Project;
+import org.arm.resource.mngt.exception.ProjectNotFoundException;
 import org.arm.resource.mngt.service.IProjectService;
 import org.arm.resource.mngt.vo.ProjectVO;
 import org.dozer.DozerBeanMapper;
@@ -24,7 +25,7 @@ public class ProjectController {
 	}
 
 	@GetMapping("/projects")
-	public List<ProjectVO> allProjectVO() {
+	public List<ProjectVO> allProjectVO() throws ProjectNotFoundException {
 		List<ProjectVO> projectVOs = new ArrayList<ProjectVO>();
 		List<Project> allProjects = projectService.getAllProject();
 		for (Project project : allProjects) {

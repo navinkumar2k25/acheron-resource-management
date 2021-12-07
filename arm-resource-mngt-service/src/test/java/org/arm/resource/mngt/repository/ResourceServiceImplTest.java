@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,24 +14,17 @@ import java.util.Optional;
 
 import org.arm.resource.mngt.entity.Resource;
 import org.arm.resource.mngt.entity.Task;
-import org.arm.resource.mngt.repository.ResourceRepository;
 import org.arm.resource.mngt.service.ResourceService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-//@SpringBootTest
-//@RunWith(SpringRunner.class)
 @ExtendWith(MockitoExtension.class)
-@RunWith(MockitoJUnitRunner.class)
 public class ResourceServiceImplTest {
 
 	@InjectMocks
@@ -41,7 +35,6 @@ public class ResourceServiceImplTest {
 
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
 	}
 
 	@After

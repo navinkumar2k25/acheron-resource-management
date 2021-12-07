@@ -1,8 +1,11 @@
 package org.arm.resource.mngt.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.arm.resource.mngt.entity.Task;
+import org.arm.resource.mngt.exception.IDNotFoundException;
+import org.arm.resource.mngt.exception.TaskNotFoundException;
 import org.arm.resource.mngt.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +17,10 @@ public class TaskService implements ITaskService {
 	TaskRepository taskRepository;
 
 	@Override
-	public List<Task> getAllTask() {
+	public List<Task> getAllTask() throws TaskNotFoundException {
 		List<Task> taskList= taskRepository.findAll();
 		if(taskList.isEmpty())
-			throw new RuntimeException("Task is not available");
+			throw new TaskNotFoundException("Task is not available");
 		return taskList;
 	}
 
@@ -28,15 +31,19 @@ public class TaskService implements ITaskService {
 	}
 	
 	@Override
-	public List<Task> getByDurationLessThan(float availableHours) {
+	public List<Task> getByDurationLessThan(float availableHours) throws TaskNotFoundException{
 		List<Task> taskDuration=taskRepository.findByDurationLessThan(availableHours);
 		if(taskDuration.isEmpty())
-			throw new RuntimeException("Duration is not available");
+			throw new TaskNotFoundException("Duration is not available");
 		return taskDuration;
 	}
 
 	@Override
-	public Task getById(int id) {
-		return taskRepository.findById(id).get();
+	public Task getById(int id) throws IDNotFoundException {
+		Optional<Task> taskById=taskRepository.findById(id);
+		if(taskById==null) {
+			throw new IDNotFoundException("No Id Found");
+		}
+		return taskById.get();
 	}
 }

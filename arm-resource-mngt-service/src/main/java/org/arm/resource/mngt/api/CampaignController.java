@@ -10,6 +10,8 @@ import org.arm.resource.mngt.entity.Campaign;
 import org.arm.resource.mngt.entity.Project;
 import org.arm.resource.mngt.entity.Resource;
 import org.arm.resource.mngt.entity.Task;
+import org.arm.resource.mngt.exception.CampaignNotFoundException;
+import org.arm.resource.mngt.exception.IDNotFoundException;
 import org.arm.resource.mngt.service.ICampaignService;
 import org.arm.resource.mngt.service.IResourceService;
 import org.arm.resource.mngt.vo.CampaignVO;
@@ -35,6 +37,7 @@ public class CampaignController {
 
 	@GetMapping("/campaigns")
 	public ResponseEntity<List<CampaignVO>> allCampaignVO() {
+		logger.warn("Inside Campaign Controller");
 		logger.info("All Campaign inside controller");
 		List<CampaignVO> campaignVOs = new ArrayList<CampaignVO>();
 		List<Campaign> allCampaigns = campaignService.getAllCampaign();
@@ -53,10 +56,10 @@ public class CampaignController {
 
 
 	@GetMapping("/campaign/{id}")
-	public ResponseEntity<Campaign> findById(@PathVariable("id") int id) {
+	public ResponseEntity<Campaign> findById(@PathVariable("id") int id)throws IDNotFoundException{
+		Campaign campaignById=campaignService.findById(id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "Get Campaign By ID");
-		Campaign campaignById=campaignService.findById(id);
 		return ResponseEntity.ok().headers(headers).body(campaignById);
 	}
 
@@ -77,7 +80,7 @@ public class CampaignController {
 //		
 //	}
 	@GetMapping("/campaigns/resources")
-	public ResponseEntity<List<CampaignVO>> allResources() {
+	public ResponseEntity<List<CampaignVO>> allResources() throws CampaignNotFoundException{
 
 		List<Campaign> allCampaigns = campaignService.getAllCampaign();
 		List<CampaignVO> campaignVOs = new ArrayList<CampaignVO>();

@@ -47,4 +47,3 @@ services:
       - 8080:8080
     networks:
       - ms-network
-      

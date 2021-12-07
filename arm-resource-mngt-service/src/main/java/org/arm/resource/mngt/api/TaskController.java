@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.arm.resource.mngt.entity.Task;
+import org.arm.resource.mngt.exception.TaskNotFoundException;
 import org.arm.resource.mngt.service.ITaskService;
 import org.arm.resource.mngt.vo.TaskVO;
 import org.dozer.DozerBeanMapper;
@@ -25,7 +26,7 @@ public class TaskController {
 	}
 
 	@GetMapping("/tasks")
-	public List<TaskVO> allTaskVO() {
+	public List<TaskVO> allTaskVO() throws TaskNotFoundException {
 		List<TaskVO> taskVOs = new ArrayList<TaskVO>();
 		List<Task> allTasks = taskService.getAllTask();
 		for (Task task : allTasks) {
@@ -54,7 +55,7 @@ public class TaskController {
 //	}
 
 	@GetMapping("/tasks/availability/{available-hour}")
-	ResponseEntity<List<Task>> findByDurationLessThan(@PathVariable("available-hour") float availableHours) {
+	ResponseEntity<List<Task>> findByDurationLessThan(@PathVariable("available-hour") float availableHours)throws TaskNotFoundException {
 		List<Task> taskList = taskService.getByDurationLessThan(availableHours);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "Get Brandlist By Name");
