@@ -20,11 +20,22 @@ public class TaskController {
 	@Autowired
 	private ITaskService taskService;
 
+	/**
+	 * gets task by id
+	 * @param id
+	 * @return task object
+	 */
 	@GetMapping("/tasks/{task-id}")
 	Task getById(@PathVariable("task-id") int id) {
 		return taskService.getById(id);
 	}
 
+	/**
+	 * gets all task,resource(if available)
+	 * and filtering unwanted columns i.e., using ResourceVO
+	 * @return TaskVO list object as response entity
+	 * @throws TaskNotFoundException
+	 */
 	@GetMapping("/tasks")
 	public List<TaskVO> allTaskVO() throws TaskNotFoundException {
 		List<TaskVO> taskVOs = new ArrayList<TaskVO>();
@@ -34,26 +45,17 @@ public class TaskController {
 			dozerBeanMapper.setMappingFiles(Arrays.asList("mapping\\mapper.xml"));
 			TaskVO taskVO = dozerBeanMapper.map(task, TaskVO.class);
 			taskVOs.add(taskVO);
-
 		}
 		return taskVOs;
 	}
 
-//	@GetMapping("/task/create")
-//	public void createTask(){
-//		Task task = new Task();
-//		task.setCreateDate(new Timestamp(new Date().getTime()));
-//		task.setDuration(10);
-//		task.setEndDate(new Timestamp(new Date().getTime() + 15*86400 ));
-//		task.setStartDate(new Timestamp(new Date().getTime()));
-//		task.setIsDeleted(0);
-//		task.setPriority(Priority.MEDIUM);
-//		task.setStatus(Status.IN_PROGRESS);
-//		task.setTaskName("Task5");
-//		task.setTaskOwner("Test");
-//		taskService.createTasks(task);
-//	}
 
+	/**
+	 * gets all tasks which is less than availableHours
+	 * @param availableHours
+	 * @return Task list object as response entity
+	 * @throws TaskNotFoundException
+	 */
 	@GetMapping("/tasks/availability/{available-hour}")
 	ResponseEntity<List<Task>> findByDurationLessThan(@PathVariable("available-hour") float availableHours)throws TaskNotFoundException {
 		List<Task> taskList = taskService.getByDurationLessThan(availableHours);

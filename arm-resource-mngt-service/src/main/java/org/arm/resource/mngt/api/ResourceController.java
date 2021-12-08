@@ -22,6 +22,12 @@ public class ResourceController {
 	@Autowired
 	private ResourceService resourceService;
 
+	/**
+	 * gets all resource
+	 * and filtering unwanted columns i.e., using ResourceVO
+	 * @return ResourceVO list object as response entity 
+	 * @throws ResourceNotFoundException
+	 */
 	@GetMapping("/resources")
 	public ResponseEntity<List<ResourceVO>> getAllResource() throws ResourceNotFoundException{
 		List<ResourceVO> resourceVOs = new ArrayList<ResourceVO>();
@@ -37,17 +43,11 @@ public class ResourceController {
 		return ResponseEntity.ok().headers(headers).body(resourceVOs);
 	}
 
-//	@PostMapping("/resource/create")
-//	public void createResource(){
-//		Resource resource = new Resource();
-//		resource.setCreateDate(new Timestamp(new Date().getTime()));
-//		resource.setIsDeleted(0);
-//		resource.setResourceName("T User 2");
-//		resource.setResourceType("B");
-//		
-//		resourceService.save(resource);
-//	}
-//	
+	/**
+	 * get non allocated resources
+	 * and filtering unwanted columns i.e., using ResourceVO
+	 * @return ResourceVO list object as response entity
+	 */
 	@GetMapping("/resources/without-task")
 	public ResponseEntity<List<ResourceVO>> getResourceWithoutTaskAssigned() {
 		List<ResourceVO> resourceVOs = new ArrayList<ResourceVO>();
@@ -63,6 +63,11 @@ public class ResourceController {
 		return ResponseEntity.ok().headers(headers).body(resourceVOs);
 	}
 
+	/**
+	 * gets resource by id
+	 * @param id
+	 * @return resource object
+	 */
 	@GetMapping("/resources/{resource-id}")
 	Resource getById(@PathVariable("resource-id") int id) {
 		return resourceService.getById(id);

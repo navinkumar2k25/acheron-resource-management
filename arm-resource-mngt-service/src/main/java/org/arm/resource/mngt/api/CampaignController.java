@@ -31,11 +31,16 @@ public class CampaignController {
 	private ICampaignService campaignService;
 	
 	@Autowired
-	private IResourceService iResourceService;
+	private IResourceService resourceService;
 
 	Logger logger = LoggerFactory.getLogger(CampaignController.class);
 
-	@GetMapping("/campaigns")
+	/**
+	 * gets all campaigns with project,task,resource(if available) 
+	 * and filtering unwanted columns i.e., using CampaignVO
+	 * @return list of campaignVO objects as response entity
+	 */
+	 @GetMapping("/campaigns")
 	public ResponseEntity<List<CampaignVO>> allCampaignVO() {
 		logger.warn("Inside Campaign Controller");
 		logger.info("All Campaign inside controller");
@@ -53,8 +58,12 @@ public class CampaignController {
 		return ResponseEntity.ok().headers(headers).body(campaignVOs);
 	}
 
-
-
+	/**
+	 * gets campaign by id
+	 * @param id
+	 * @return Campaign object as response entity 
+	 * @throws IDNotFoundException
+	 */
 	@GetMapping("/campaign/{id}")
 	public ResponseEntity<Campaign> findById(@PathVariable("id") int id)throws IDNotFoundException{
 		Campaign campaignById=campaignService.findById(id);
@@ -63,29 +72,22 @@ public class CampaignController {
 		return ResponseEntity.ok().headers(headers).body(campaignById);
 	}
 
-//	@PostMapping("/campaign/create")
-//	public void createCampaign(){
-//		logger.info("Campaign logging");
-//		Campaign campaign = new Campaign();
-//		campaign.setCampaignName("Campaign1");
-//		campaign.setCampaignOwner("Test");
-//		campaign.setCreateDate(new Timestamp(new Date().getTime()));
-//		campaign.setEndDate(new Timestamp(new Date().getTime() + 15*86400 ));
-//		campaign.setIsDeleted(0);
-//		campaign.setPriority(Priority.MEDIUM);
-//		campaign.setStatus(Status.IN_PROGRESS);
-//		campaign.setStartDate(new Timestamp(new Date().getTime()));
-//		
-//		campaignService.createCampaign(campaign);
-//		
-//	}
+	/**
+	 * gets all resources i.e., allocated and non allocated resources as CampaignVO(top level object) 
+	 * and filtering unwanted columns i.e., using CampaignVO
+	 * @return list of campaignVO objects as response entity
+	 * @throws CampaignNotFoundException
+	 */
 	@GetMapping("/campaigns/resources")
 	public ResponseEntity<List<CampaignVO>> allResources() throws CampaignNotFoundException{
 
 		List<Campaign> allCampaigns = campaignService.getAllCampaign();
 		List<CampaignVO> campaignVOs = new ArrayList<CampaignVO>();
-		List<Resource> allNotAssignedResource = iResourceService.findResourceWithoutTaskAssigned();
+		List<Resource> allNotAssignedResource = resourceService.findResourceWithoutTaskAssigned();
 		List<Campaign> campaignList = new ArrayList<>();
+		
+		//setting null to campaign,project,task to all non-allocated resources
+		//in order to merge two list and make it as top level CampaignVO object
 		allNotAssignedResource.forEach((resource) -> {
 			Task task = new Task(0, null, null, null, null, 0, null, null, null, null, 0, null, null, null, resource);
 			Set<Task> taskSet = new HashSet<>(Arrays.asList(task));

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.arm.resource.mngt.entity.Project;
+import org.arm.resource.mngt.exception.IDNotFoundException;
 import org.arm.resource.mngt.exception.ProjectNotFoundException;
 import org.arm.resource.mngt.service.IProjectService;
 import org.arm.resource.mngt.vo.ProjectVO;
@@ -19,11 +20,23 @@ public class ProjectController {
 	@Autowired
 	private IProjectService projectService;
 
+	/**
+	 * gets project by id
+	 * @param id
+	 * @return Project object as response entity 
+	 */
 	@GetMapping("/projects/{project-id}")
 	Project getById(@PathVariable("project-id") int id) {
 		return projectService.getById(id);
 	}
 
+	/**
+	 * gets all projects with task,resource(if available) 
+	 * and filtering unwanted columns i.e., using ProjectVO
+	 * @GetMapping("/projects")
+	 * @return list of ProjectVO objects as response entity
+	 * @throws IDNotFoundException
+	 */
 	@GetMapping("/projects")
 	public List<ProjectVO> allProjectVO() throws ProjectNotFoundException {
 		List<ProjectVO> projectVOs = new ArrayList<ProjectVO>();
@@ -38,19 +51,4 @@ public class ProjectController {
 		return projectVOs;
 	}
 
-//	@GetMapping("/project/create")
-//	public void createProject(){
-//		Project project = new Project();
-//		// project.setCampaignId(1);
-//		project.setCreateDate(new Timestamp(new Date().getTime()));
-//		project.setEndDate(new Timestamp(new Date().getTime() + 15*86400 ));
-//		project.setIsDeleted(0);
-//		project.setStartDate(new Timestamp(new Date().getTime()));
-//		project.setPriority(Priority.HIGH);
-//		project.setProjectName("New Project");
-//		project.setProjectOwner("Test");
-//		project.setStatus(Status.IN_PROGRESS);
-//		
-//		projectService.save(project);
-//	}
 }
