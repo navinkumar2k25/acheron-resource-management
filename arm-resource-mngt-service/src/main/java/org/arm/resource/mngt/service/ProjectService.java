@@ -14,7 +14,7 @@ public class ProjectService implements IProjectService {
 
 	@Autowired
 	ProjectRepository projectRepository;
-
+  // to retrieve the list of project
 	@Override
 	public List<Project> getAllProject()  throws ProjectNotFoundException{
 		List<Project> projectList= projectRepository.findAll();
@@ -23,19 +23,15 @@ public class ProjectService implements IProjectService {
 		}
 		return projectList;
 	}
-
+	// to add project
 	@Override
 	public void save(Project project) {
 		projectRepository.save(project);
 	}
-
+	// to retrieve the project by Id
 	@Override
 	public Project getById(int id) throws IDNotFoundException {
-		Optional<Project> projectById=projectRepository.findById(id);
-		if(projectById==null) {
-			throw new IDNotFoundException("Id not found");
-		}
-		return projectById.get();
+		return projectRepository.findById(id).orElseThrow(() -> new IDNotFoundException("Project Id not Found"));
 	}
 
 }

@@ -23,13 +23,14 @@ public class TaskService implements ITaskService {
 			throw new TaskNotFoundException("Task is not available");
 		return taskList;
 	}
-
+   // to add tasks
 	@Override
 	public void createTasks(Task tasks) {
 		taskRepository.save(tasks);
 		
 	}
 	
+	//to retrieve the list of task which is having less duration than the user Input
 	@Override
 	public List<Task> getByDurationLessThan(float availableHours) throws TaskNotFoundException{
 		List<Task> taskDuration=taskRepository.findByDurationLessThan(availableHours);
@@ -37,13 +38,11 @@ public class TaskService implements ITaskService {
 			throw new TaskNotFoundException("Duration is not available");
 		return taskDuration;
 	}
-
+ 
+	//to retrieve the Task by passing Id
 	@Override
 	public Task getById(int id) throws IDNotFoundException {
-		Optional<Task> taskById=taskRepository.findById(id);
-		if(taskById==null) {
-			throw new IDNotFoundException("No Id Found");
-		}
-		return taskById.get();
+		return taskRepository.findById(id).orElseThrow(() -> new IDNotFoundException("Task Id not Found"));
+
 	}
 }

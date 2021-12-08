@@ -20,14 +20,14 @@ public class ResourceService implements IResourceService {
 	public void save(Resource resource) {
 		resourceRepository.save(resource);
 	}
-
+	// to retrieve the list of Resources
 	public List<Resource> findAll() throws ResourceNotFoundException{
 		List<Resource> resourceList = resourceRepository.findAll();
 		if (resourceList.isEmpty())
 			throw new ResourceNotFoundException("Resource Not Available.. ");
 		return resourceList;
 	}
-
+	// to retrieve the Resources which is not assigned with task
 	@Override
 	public List<Resource> findResourceWithoutTaskAssigned() throws ResourceNotFoundException {
 
@@ -36,7 +36,7 @@ public class ResourceService implements IResourceService {
 			throw new ResourceNotFoundException("No resource Available.. ");
 		return allResource;
 	}
-
+	// to retrieve the Resources based on Id
 	@Override
 	public Resource getById(int id)  throws IDNotFoundException{
 		Optional<Resource> resourceById= resourceRepository.findById(id);

@@ -76,9 +76,10 @@ public class CampaignServiceImplTest {
 				"Naveen", "NAC", null));
 		when(campaignRepository.save(campaign)).thenReturn(campaign);
 		campaignService.createCampaign(campaign);
-		verify(campaignRepository,times(1)).save(campaign);
+		verify(campaignRepository, times(1)).save(campaign);
 
 	}
+
 	@Test
 	@DisplayName("Testing findById campaign")
 	public void testCampaignById() {
@@ -89,12 +90,14 @@ public class CampaignServiceImplTest {
 		when(campaignRepository.findById(1)).thenReturn(Optional.of(campaign));
 		assertEquals(campaignService.findById(1).getCampaignId(), 1);
 	}
+
 	@Test
 	@DisplayName("Testing findById campaign when id not present")
 	public void testCampaignByIdNotFound() {
-		when(campaignRepository.findById(2)).thenReturn(null);
-		assertThrows(IDNotFoundException.class, ()->{
-			campaignService.findById(2);
+		when(campaignRepository.findById(10)).thenThrow(IDNotFoundException.class);
+
+		assertThrows(IDNotFoundException.class, () -> {
+			campaignService.findById(10);
 		});
 
 	}

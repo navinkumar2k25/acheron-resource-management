@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 public class CampaignService implements ICampaignService {
 	@Autowired
 	CampaignRepository campaignRepository;
-
+	
+   // to display the list of Campaigns
 	public List<Campaign> getAllCampaign() throws CampaignNotFoundException {
 		 List<Campaign> allCampaign= campaignRepository.findAll();
 			if(allCampaign.isEmpty()) {
@@ -23,21 +24,19 @@ public class CampaignService implements ICampaignService {
 			return allCampaign;
 
 	}
-
+	// to add Campaigns
 	@Override
 	public void createCampaign(Campaign campaign) {
 		campaignRepository.save(campaign); 
 	}
-
+    
+	// to retrieve Campaigns by Id
 	@Override
 	public Campaign findById(int id) throws IDNotFoundException{
-		Optional<Campaign> campaignById=campaignRepository.findById(id);
-		if(campaignById==null) {
-			throw new IDNotFoundException("Id not found");
-		}
-		return campaignById.get();
+		return campaignRepository.findById(id).orElseThrow(() -> new IDNotFoundException("Campaign Id not Found"));
 	}
 	
+	//to retrieve all Resources which assigned with particular campaigns
 	@Override
 	public List<Campaign> getAllResourcesCampaignDetails()throws CampaignNotFoundException {
 		List<Campaign> campaignList= campaignRepository.findAllResourcesCampaignDetails();
