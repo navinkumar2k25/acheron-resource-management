@@ -24,7 +24,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-//@AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 public class Project {
 
@@ -52,27 +52,10 @@ public class Project {
 	@OneToMany(mappedBy="project")
 	private Set<Task> tasks;
 
-	public Project(int projectId, String projectName, String projectOwner, Timestamp startDate, Timestamp endDate,
-			Priority priority, Status status, Timestamp createDate, Timestamp updateDate, int isDeleted,
-			String createdBy, String updatedBy, Campaign campaign, Set<Task> tasks) {
+	public Project(Set<Task> tasks) {
 		super();
-		this.projectId = projectId;
-		this.projectName = projectName;
-		this.projectOwner = projectOwner;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.priority = priority;
-		this.status = status;
-		this.createDate = createDate;
-		this.updateDate = updateDate;
-		this.isDeleted = isDeleted;
-		this.createdBy = createdBy;
-		this.updatedBy = updatedBy;
-		this.campaign = campaign;
 		this.tasks = tasks;
 	}
-	
-
 	@Override
 	public String toString() {
 		return "Project [projectId=" + projectId + ", projectName=" + projectName + ", projectOwner=" + projectOwner

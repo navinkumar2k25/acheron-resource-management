@@ -28,6 +28,7 @@ public class CampaignRepositoryTest {
 				Timestamp.valueOf("2020-04-27 09:03:01"), Priority.HIGH, Status.DEFINED,
 				Timestamp.valueOf("2020-03-27 09:03:01"), Timestamp.valueOf("2020-03-27 09:03:01"), 0, "Prasanna",
 				"Naveen","IMEA", null));
+		
 		assertNotNull(campaign);
 	}
 

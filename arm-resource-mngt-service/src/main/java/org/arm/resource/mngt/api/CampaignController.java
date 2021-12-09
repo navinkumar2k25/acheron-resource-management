@@ -89,13 +89,11 @@ public class CampaignController {
 		//setting null to campaign,project,task to all non-allocated resources
 		//in order to merge two list and make it as top level CampaignVO object
 		allNotAssignedResource.forEach((resource) -> {
-			Task task = new Task(0, null, null, null, null, 0, null, null, null, null, 0, null, null, null, resource);
+			Task task = new Task(resource);
 			Set<Task> taskSet = new HashSet<>(Arrays.asList(task));
-			Project project = new Project(0, null, null, null, null, null, null, null, null, 0, null, null, null,
-					taskSet);
+			Project project = new Project(taskSet);
 			Set<Project> projectsSet = new HashSet<>(Arrays.asList(project));
-			Campaign campaign = new Campaign(0, null, null, null, null, null, null, null, null, 0, null, null,
-					null, projectsSet);
+			Campaign campaign = new Campaign(projectsSet);
 			campaignList.add(campaign);
 		});
 		allCampaigns.addAll(campaignList);

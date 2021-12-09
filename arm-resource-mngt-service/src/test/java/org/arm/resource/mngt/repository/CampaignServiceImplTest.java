@@ -27,6 +27,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class CampaignServiceImplTest {
+
 	@InjectMocks
 	private CampaignService campaignService;
 
@@ -49,10 +50,12 @@ public class CampaignServiceImplTest {
 				Timestamp.valueOf("2020-04-27 09:03:01"), Priority.HIGH, Status.DEFINED,
 				Timestamp.valueOf("2020-03-27 09:03:01"), Timestamp.valueOf("2020-03-27 09:03:01"), 0, "Prasanna",
 				"Naveen", "NAC", null));
+
 		campaignList.add(campaign);
 
 		when(campaignRepository.findAll()).thenReturn(campaignList);
 		List<Campaign> actual = campaignService.getAllCampaign();
+
 		assertEquals(actual.size(), 1);
 
 	}
@@ -60,7 +63,9 @@ public class CampaignServiceImplTest {
 	@Test
 	@DisplayName("Testing get all campaign when no campaign is present")
 	public void testGetAllCampaignWhenListisEmpty() {
+
 		when(campaignRepository.findAll()).thenReturn(new ArrayList<Campaign>());
+
 		assertThrows(RuntimeException.class, () -> {
 			campaignService.getAllCampaign();
 		});
@@ -74,8 +79,10 @@ public class CampaignServiceImplTest {
 				Timestamp.valueOf("2020-04-27 09:03:01"), Priority.HIGH, Status.DEFINED,
 				Timestamp.valueOf("2020-03-27 09:03:01"), Timestamp.valueOf("2020-03-27 09:03:01"), 0, "Prasanna",
 				"Naveen", "NAC", null));
+
 		when(campaignRepository.save(campaign)).thenReturn(campaign);
 		campaignService.createCampaign(campaign);
+
 		verify(campaignRepository, times(1)).save(campaign);
 
 	}
@@ -87,13 +94,16 @@ public class CampaignServiceImplTest {
 				Timestamp.valueOf("2020-04-27 09:03:01"), Priority.HIGH, Status.DEFINED,
 				Timestamp.valueOf("2020-03-27 09:03:01"), Timestamp.valueOf("2020-03-27 09:03:01"), 0, "Prasanna",
 				"Naveen", "NAC", null));
+
 		when(campaignRepository.findById(1)).thenReturn(Optional.of(campaign));
+
 		assertEquals(campaignService.findById(1).getCampaignId(), 1);
 	}
 
 	@Test
 	@DisplayName("Testing findById campaign when id not present")
 	public void testCampaignByIdNotFound() {
+		
 		when(campaignRepository.findById(10)).thenThrow(IDNotFoundException.class);
 
 		assertThrows(IDNotFoundException.class, () -> {

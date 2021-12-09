@@ -44,7 +44,6 @@ public class ProjectApiTest {
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 		ResponseEntity<Project> response = restTemplate.exchange(createURLWithPort("/projects/2"), HttpMethod.GET,
 				entity, Project.class);
-		System.out.println(response.getBody());
 		assertEquals(response.getBody().getProjectId(), 2);
 
 	}

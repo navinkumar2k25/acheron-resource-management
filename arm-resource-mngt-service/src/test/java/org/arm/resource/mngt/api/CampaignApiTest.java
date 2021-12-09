@@ -1,7 +1,6 @@
 package org.arm.resource.mngt.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -24,31 +23,35 @@ public class CampaignApiTest {
 
 	@LocalServerPort
 	private int port;
+
 	TestRestTemplate restTemplate = new TestRestTemplate();
+
 	HttpHeaders headers = new HttpHeaders();
 
 	@Test
-	@DisplayName("getCampaign Testing")
-	public void testGetCampaign() {
+	@DisplayName("Testing getAllCampaignApi")
+	public void testGetAllCampaign() {
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-		ResponseEntity<Campaign> response = restTemplate.exchange(createURLWithPort("/campaign/1"), HttpMethod.GET,
-				entity, new ParameterizedTypeReference<Campaign>() {
+		ResponseEntity<List<Campaign>> campaignList = restTemplate.exchange(createURLWithPort("/campaigns"),
+				HttpMethod.GET, entity, new ParameterizedTypeReference<List<Campaign>>() {
 				});
-		assertNotNull(response.getBody());
-		assertEquals(response.getBody().getCampaignId(), 1);
-		assertNotNull(response.getBody().getCampaignName());
+
+		assertNotNull(campaignList.getBody());
+		assertEquals(campaignList.getBody().size(), 4);
+
 	}
 
 	@Test
-	@DisplayName("getAllCampaign Testing")
-	public void testGetAllCampaign() {
+	@DisplayName("Testing getCampaignByIdApi")
+	public void testGetCampaign() {
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-		ResponseEntity<List<Campaign>> response = restTemplate.exchange(createURLWithPort("/campaigns"), HttpMethod.GET,
-				entity, new ParameterizedTypeReference<List<Campaign>>() {
+		ResponseEntity<Campaign> campaign = restTemplate.exchange(createURLWithPort("/campaign/1"), HttpMethod.GET,
+				entity, new ParameterizedTypeReference<Campaign>() {
 				});
-		assertNotEquals(response.getBody().size(), 0);
-		assertNotNull(response.getBody().get(0));
-		assertEquals(response.getBody().get(1).getCreateDate(), null);
+
+		assertNotNull(campaign.getBody());
+		assertEquals(campaign.getBody().getCampaignId(), 1);
+		assertNotNull(campaign.getBody().getCampaignName());
 	}
 
 	private String createURLWithPort(String uri) {

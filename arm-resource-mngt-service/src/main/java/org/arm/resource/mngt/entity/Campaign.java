@@ -20,7 +20,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-//@AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 public class Campaign {
 	@Id
@@ -42,6 +42,11 @@ public class Campaign {
 	@OneToMany(mappedBy = "campaign")
 	private Set<Project> projects;
 
+
+	public Campaign(Set<Project> projects) {
+		super();
+		this.projects = projects;
+	}
 	
 	@Override
 	public String toString() {
@@ -51,25 +56,5 @@ public class Campaign {
 				+ isDeleted + "]";
 	}
 
-
-	public Campaign(int campaignId, String campaignName, String campaignOwner, Timestamp startDate, Timestamp endDate,
-			Priority priority, Status status, Timestamp createDate, Timestamp updateDate, int isDeleted,
-			String createdBy, String updatedBy, String region, Set<Project> projects) {
-		super();
-		this.campaignId = campaignId;
-		this.campaignName = campaignName;
-		this.campaignOwner = campaignOwner;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.priority = priority;
-		this.status = status;
-		this.createDate = createDate;
-		this.updateDate = updateDate;
-		this.isDeleted = isDeleted;
-		this.createdBy = createdBy;
-		this.updatedBy = updatedBy;
-		this.region = region;
-		this.projects = projects;
-	}
 	
 }

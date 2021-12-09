@@ -25,7 +25,7 @@ import lombok.ToString;
 @Entity
 @Setter
 @Getter
-//@AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Task {
@@ -57,27 +57,10 @@ public class Task {
 	@JoinColumn(name = "resourceId")
 	private Resource resource;
 
-	public Task(int taskId, String taskName, String taskOwner, Timestamp startDate, Timestamp endDate, float duration,
-			Priority priority, Status status, Timestamp createDate, Timestamp updateDate, int isDeleted,
-			String createdBy, String updatedBy, Project project, Resource resource) {
+	public Task(Resource resource) {
 		super();
-		this.taskId = taskId;
-		this.taskName = taskName;
-		this.taskOwner = taskOwner;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.duration = duration;
-		this.priority = priority;
-		this.status = status;
-		this.createDate = createDate;
-		this.updateDate = updateDate;
-		this.isDeleted = isDeleted;
-		this.createdBy = createdBy;
-		this.updatedBy = updatedBy;
-		this.project = project;
 		this.resource = resource;
 	}
-
 	
 	
 
